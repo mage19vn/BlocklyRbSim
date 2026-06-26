@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trình tạo code RbSim — Mage__</title>
+  <meta name="description" content="Công cụ kéo-thả tạo mã Python cho robot RbSim. Sử dụng Blockly để sinh code tự động theo template single/multi task.">
+  <meta name="author" content="Mage__">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%23080d14'/><rect x='8' y='8' width='84' height='84' rx='12' fill='none' stroke='%2300d4ff' stroke-width='4'/><text x='50%25' y='54%25' dominant-baseline='central' text-anchor='middle' font-family='Arial Black,Arial' font-weight='900' font-size='44' fill='%2300d4ff'>Rb</text></svg>">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Blockly -->
+  <script src="https://unpkg.com/blockly/blockly.min.js"></script>
+  <script src="https://unpkg.com/blockly/python_compressed.js"></script>
+
+  <!-- Monaco Editor Loader -->
+  <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs/loader.js"></script>
+
+  <!-- App Styles -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<div id="app">
+
+  <!-- ======================================================
+       HEADER
+       ====================================================== -->
+  <header id="app-header">
+
+    <!-- Logo -->
+    <div class="header-logo">
+      <div class="logo-icon">Rb</div>
+      <div class="logo-text">
+        <span class="logo-title">Trình tạo code RbSim</span>
+        <span class="logo-sub">Blockly Python Generator</span>
+      </div>
+    </div>
+
+    <div class="header-divider"></div>
+
+    <!-- Coder badge -->
+    <div class="coder-badge">
+      <div class="coder-badge-dot"></div>
+      <span class="coder-badge-label">Coder</span>
+      <span class="coder-badge-name">Mage__</span>
+    </div>
+
+    <div class="header-divider"></div>
+
+    <!-- Mode indicator -->
+    <div class="mode-indicator" title="Chế độ sinh code hiện tại">
+      <span class="mode-label">Chế độ</span>
+      <span class="mode-value" id="mode-value">Single Task</span>
+    </div>
+
+    <!-- Spacer -->
+    <div class="header-spacer"></div>
+
+    <!-- Action buttons -->
+    <div class="header-actions">
+
+      <!-- Import Workspace -->
+      <button id="btn-import-ws" class="btn btn-ghost" title="Nhập Workspace từ file JSON">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
+        </svg>
+        <span>Nhập WS</span>
+      </button>
+
+      <!-- Export Workspace -->
+      <button id="btn-export-ws" class="btn btn-ghost" title="Xuất Workspace ra file JSON">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/>
+        </svg>
+        <span>Xuất WS</span>
+      </button>
+
+      <!-- Reset -->
+      <button id="btn-reset" class="btn btn-danger" title="Xóa toàn bộ workspace">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+        </svg>
+        <span>Reset</span>
+      </button>
+
+      <div class="header-divider"></div>
+
+      <!-- Export Python (primary) -->
+      <button id="btn-export-py" class="btn btn-primary" title="Xuất file code Python (.py)">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+        </svg>
+        <span>Export Python</span>
+      </button>
+
+    </div>
+  </header>
+
+  <!-- ======================================================
+       MAIN LAYOUT
+       ====================================================== -->
+  <main id="main-layout">
+
+    <!-- Blockly Workspace -->
+    <div id="workspace-container">
+
+      <!-- Dot grid overlay (decorative, pointer-events:none) -->
+      <!-- handled by CSS ::before -->
+
+      <!-- Blockly injection target -->
+      <div id="blocklyDiv"></div>
+
+      <!-- Duplicate task warning banner (floating over workspace) -->
+      <div class="blockly-warning-overlay">
+        <div id="duplicate-banner" class="duplicate-task-banner">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+          </svg>
+          <span>Task bị trùng: <strong class="dup-ids"></strong></span>
+        </div>
+      </div>
+
+      <!-- Empty state hint (shown when workspace is empty) -->
+      <div class="workspace-hint" id="workspace-hint" style="display:none;">
+        <div class="workspace-hint-icon">🤖</div>
+        <div class="workspace-hint-text">Kéo khối từ menu bên trái vào đây</div>
+        <div class="workspace-hint-sub">Bắt đầu với "⚙️ Khởi tạo Task"</div>
+      </div>
+    </div>
+
+    <!-- ====================================================
+         CODE PREVIEW PANEL
+         ================================================== -->
+    <div id="preview-panel">
+
+      <!-- Resize handle -->
+      <div id="resize-handle" title="Kéo để thay đổi kích thước"></div>
+
+      <!-- Preview Header -->
+      <div class="preview-header">
+        <div class="preview-header-left">
+          <div class="preview-lang-badge">Python</div>
+          <span class="preview-title">Code Preview — Realtime</span>
+        </div>
+        <div class="preview-header-actions">
+          <!-- Copy -->
+          <button id="btn-copy" class="preview-action-btn" title="Sao chép code">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+            </svg>
+          </button>
+          <!-- Download .py -->
+          <button id="btn-download" class="preview-action-btn" title="Tải xuống file .py">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Monaco Editor -->
+      <div id="monacoDiv"></div>
+
+      <!-- Stats bar -->
+      <div class="preview-stats">
+        <div class="preview-stat">
+          <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h7"/>
+          </svg>
+          <span id="preview-lines">0 dòng</span>
+        </div>
+        <div class="preview-stat">
+          <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+          </svg>
+          <strong>Python 3</strong>
+          &nbsp;·&nbsp; RbSim template
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ======================================================
+       STATUS BAR
+       ====================================================== -->
+  <div id="status-bar">
+    <div class="status-item">
+      <div class="status-dot"></div>
+      <span>Sẵn sàng</span>
+    </div>
+    <div class="status-item">
+      <span id="status-blocks">0 blocks</span>
+    </div>
+    <div class="status-spacer"></div>
+    <div class="status-item">
+      <span>RbSim Code Generator</span>
+    </div>
+    <div class="status-item">
+      <span>Mage__</span>
+    </div>
+  </div>
+
+</div><!-- /#app -->
+
+<!-- ======================================================
+     TOAST CONTAINER
+     ====================================================== -->
+<div id="toast-container"></div>
+
+<!-- ======================================================
+     JAVASCRIPT — load order matters
+     ====================================================== -->
+
+<!-- 1. Block definitions (depends on Blockly global) -->
+<script src="js/blocks.js"></script>
+
+<!-- 2. Toolbox config -->
+<script src="js/toolbox.js"></script>
+
+<!-- 3. Python generators (exports window.RbSimGenerators) -->
+<script src="js/generators.js"></script>
+
+<!-- 4. Python template assembler (exports window.RbSimTemplates) -->
+<script src="js/templates.js"></script>
+
+<!-- 5. Storage (exports window.RbSimStorage) -->
+<script src="js/storage.js"></script>
+
+<!-- 6. UI wiring (exports window.initApp) -->
+<script src="js/ui.js"></script>
+
+<!-- 7. Bootstrap -->
+<script>
+  // Wait for DOM + all scripts to be ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initApp);
+  } else {
+    initApp();
+  }
+</script>
+
+</body>
+</html>
