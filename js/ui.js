@@ -114,11 +114,11 @@ let _isResizing   = false;
    ============================================================ */
 function setupCustomDialogs() {
   const overlay = document.getElementById('custom-modal-overlay');
-  const titleEl = document.getElementById('custom-modal-title');
-  const msgEl = document.getElementById('custom-modal-message');
-  const inputEl = document.getElementById('custom-modal-input');
-  
   function showModal(opts) {
+    const titleEl = document.getElementById('custom-modal-title');
+    const msgEl = document.getElementById('custom-modal-message');
+    const inputEl = document.getElementById('custom-modal-input');
+    
     titleEl.textContent = opts.title || 'Thông báo';
     msgEl.textContent = opts.message || '';
     

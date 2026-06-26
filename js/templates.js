@@ -168,6 +168,20 @@ function assembleFinalCode(workspace, pythonGenerator) {
   // Khởi tạo generator để xóa state cũ (ví dụ definitions_)
   pythonGenerator.init(workspace);
 
+  // Thêm prefix BO_ cho hàm và MAY_ cho biến
+  if (pythonGenerator.nameDB_) {
+    const origGetName = pythonGenerator.nameDB_.getName.bind(pythonGenerator.nameDB_);
+    pythonGenerator.nameDB_.getName = function(name, type) {
+      let mapped = origGetName(name, type);
+      if (type === 'VARIABLE' || type === Blockly.VARIABLE_CATEGORY_NAME) {
+        if (!mapped.startsWith('MAY_')) mapped = 'MAY_' + mapped;
+      } else if (type === 'PROCEDURE' || type === Blockly.PROCEDURE_CATEGORY_NAME) {
+        if (!mapped.startsWith('BO_')) mapped = 'BO_' + mapped;
+      }
+      return mapped;
+    };
+  }
+
   // Lấy tất cả block ngoài cùng
   const topBlocks = workspace.getTopBlocks(true);
 
