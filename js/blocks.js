@@ -15,16 +15,18 @@
    BLOCK COLOR PALETTE
    ============================================================ */
 const COLORS = {
-  TASK:      '#f97316',  // orange   — Group 1: Task Init
-  ROBOT:     '#ef4444',  // red      — Group 2: Robot Control
-  SENSOR:    '#22c55e',  // green    — Group 3: Sensor
-  VAR:       '#f59e0b',  // amber    — Group 4: Variables
-  MATH:      '#3b82f6',  // blue     — Group 5: Math
-  LOGIC:     '#6366f1',  // indigo   — Group 6: Logic
-  CONDITION: '#8b5cf6',  // violet   — Group 7: Condition
-  LOOP:      '#10b981',  // emerald  — Group 8: Loop
-  FUNCTION:  '#a855f7',  // purple   — Group 9: Function
-  UTILITY:   '#06b6d4',  // cyan     — Group 10: Utility
+  TASK:               '#f97316',  
+  ROBOTCONTROL:       '#ef4444',
+  ROBOTLINE:          '#ec4899',
+  ROBOTMOTOR:         '#f43f5e',
+  SENSOR:             '#22c55e',  
+  VAR:                '#f59e0b',  
+  MATH:               '#3b82f6', 
+  LOGIC:              '#6366f1', 
+  CONDITION:          '#8b5cf6', 
+  LOOP:               '#10b981',  
+  FUNCTION:           '#a855f7', 
+  UTILITY:            '#06b6d4',  
 };
 
 /* ============================================================
@@ -78,7 +80,7 @@ Blockly.Blocks['rbsim_wait'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(COLORS.ROBOT);
+    this.setColour(COLORS.ROBOTCONTROL);
     this.setTooltip('wait(sec) — Dừng sec giây  •  sec: int');
   }
 };
@@ -90,7 +92,7 @@ Blockly.Blocks['rbsim_stop'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(COLORS.ROBOT);
+    this.setColour(COLORS.ROBOTCONTROL);
     this.setTooltip('stop() — Dừng robot ngay lập tức.');
   }
 };
@@ -108,7 +110,7 @@ Blockly.Blocks['rbsim_goto'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(COLORS.ROBOT);
+    this.setColour(COLORS.ROBOTCONTROL);
     this.setTooltip('goto(speed, sec)  •  speed: int (dương=tiến, âm=lùi)  •  sec: float');
   }
 };
@@ -131,7 +133,7 @@ Blockly.Blocks['rbsim_turn'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(COLORS.ROBOT);
+    this.setColour(COLORS.ROBOTCONTROL);
     this.setTooltip('turn(leftorright, speed, sec)  •  dir: 1=trái, 2=phải  •  speed: int  •  sec: float');
   }
 };
@@ -150,7 +152,7 @@ Blockly.Blocks['rbsim_rbMove'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(COLORS.ROBOT);
+    this.setColour(COLORS.ROBOTCONTROL);
     this.setTooltip('rbMove(rbType, speed) — Di chuyển không dừng tự động  •  speed: int');
   }
 };
@@ -170,7 +172,7 @@ Blockly.Blocks['rbsim_light'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(COLORS.ROBOT);
+    this.setColour(COLORS.ROBOTCONTROL);
     this.setTooltip('light(port, color)  •  port: P1-P8  •  color: 0=Tắt … 7=Trắng');
   }
 };
@@ -191,7 +193,7 @@ Blockly.Blocks['rbsim_reversalMotor'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(COLORS.ROBOT);
+    this.setColour(COLORS.ROBOTCONTROL);
     this.setTooltip('reversalMotor(MotorLeft, MotorRight, reType)  •  cổng M1-M4');
   }
 };
@@ -209,7 +211,7 @@ Blockly.Blocks['rbsim_lineinit'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(COLORS.ROBOT);
+    this.setColour(COLORS.ROBOTLINE);
     this.setTooltip('lineinit(port, color)  •  port: P1-P8  •  color: 1=đen, 2=trắng');
   }
 };
@@ -223,7 +225,7 @@ Blockly.Blocks['rbsim_linego'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(COLORS.ROBOT);
+    this.setColour(COLORS.ROBOTLINE);
     this.setTooltip('linego(speed)  •  speed: int');
   }
 };
@@ -241,7 +243,7 @@ Blockly.Blocks['rbsim_linegoto'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(COLORS.ROBOT);
+    this.setColour(COLORS.ROBOTLINE);
     this.setTooltip('linegoto(speed, sec)  •  speed: int  •  sec: float');
   }
 };
@@ -260,7 +262,7 @@ Blockly.Blocks['rbsim_linelr'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(COLORS.ROBOT);
+    this.setColour(COLORS.ROBOTLINE);
     this.setTooltip('linelr(speed, still)  •  still: 1=ngã3, 2=rẽtrái, 3=rẽphải');
   }
 };
@@ -280,7 +282,7 @@ Blockly.Blocks['rbsim_turnline'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(COLORS.ROBOT);
+    this.setColour(COLORS.ROBOTLINE);
     this.setTooltip('turnline(speedL, speedR, led)  •  speedL/R: int  •  led: int');
   }
 };
@@ -297,7 +299,7 @@ Blockly.Blocks['rbsim_motSpeed'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(COLORS.ROBOT);
+    this.setColour(COLORS.ROBOTMOTOR);
     this.setTooltip('motSpeed(port, speed)  •  port: M1-M4  •  speed: int');
   }
 };
@@ -318,7 +320,7 @@ Blockly.Blocks['rbsim_motAngle'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(COLORS.ROBOT);
+    this.setColour(COLORS.ROBOTMOTOR);
     this.setTooltip('motAngle(port, speed, addAngle)  •  port: M1-M4  •  speed: int  •  addAngle: int °');
   }
 };
@@ -336,7 +338,7 @@ Blockly.Blocks['rbsim_servo1'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(COLORS.ROBOT);
+    this.setColour(COLORS.ROBOTMOTOR);
     this.setTooltip('servo1(port, angle) — SetServo  •  port: P4/P5/P6  •  angle: int °');
   }
 };
@@ -354,7 +356,7 @@ Blockly.Blocks['rbsim_servo2'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(COLORS.ROBOT);
+    this.setColour(COLORS.ROBOTMOTOR);
     this.setTooltip('servo2(port, angle) — SetSeeringEngine  •  port: P4/P5/P6  •  angle: int °');
   }
 };
@@ -375,7 +377,7 @@ Blockly.Blocks['rbsim_servo1ForTime'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(COLORS.ROBOT);
+    this.setColour(COLORS.ROBOTMOTOR);
     this.setTooltip('servo1ForTime(port, angle, sec) — SetServoTime  •  port: P4/P5/P6  •  angle: int °  •  sec: float');
   }
 };
@@ -396,7 +398,7 @@ Blockly.Blocks['rbsim_servo2ForTime'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(COLORS.ROBOT);
+    this.setColour(COLORS.ROBOTMOTOR);
     this.setTooltip('servo2ForTime(port, angle, sec) — SetSeeringEngineTime  •  port: P4/P5/P6  •  angle: int °  •  sec: float');
   }
 };
