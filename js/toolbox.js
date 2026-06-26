@@ -55,19 +55,10 @@ const TOOLBOX_CONFIG = {
             SEC:   { shadow: { type: 'math_number', fields: { NUM: 1.0 } } }
           }
         },
-        // Turn Left
+        // Turn
         {
           kind: 'block',
-          type: 'rbsim_turnleft',
-          inputs: {
-            SPEED: { shadow: { type: 'math_number', fields: { NUM: 50 } } },
-            SEC:   { shadow: { type: 'math_number', fields: { NUM: 0.5 } } }
-          }
-        },
-        // Turn Right
-        {
-          kind: 'block',
-          type: 'rbsim_turnright',
+          type: 'rbsim_turn',
           inputs: {
             SPEED: { shadow: { type: 'math_number', fields: { NUM: 50 } } },
             SEC:   { shadow: { type: 'math_number', fields: { NUM: 0.5 } } }

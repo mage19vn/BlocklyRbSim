@@ -54,6 +54,16 @@ def turnright(speed : int, sec : float): # robot quay phai
     rcu.SetMoveRunSecond("turnright", speed, sec)
     stop()
 
+def turn(leftorright : int, speed : int, sec : float):
+    """
+    leftorright: 1 - quay trai, 2 - quay phai
+    angle: goc quay
+    """
+    if (leftorright == 1):
+        turnleft(speed, sec)
+    else:
+        turnright(speed, sec)
+
 def rbMove(rbType : int, speed : int): # Robot di chuyen theo toc do
     rblist = ["", "forward", "backward", "turnleft", "turnright"]
     srbType = rblist[rbType]

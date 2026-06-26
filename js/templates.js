@@ -51,6 +51,12 @@ def turnright(speed : int, sec : float):
     rcu.SetMoveRunSecond("turnright", speed, sec)
     stop()
 
+def turn(leftorright : int, speed : int, sec : float):
+    if (leftorright == 1):
+        turnleft(speed, sec)
+    else:
+        turnright(speed, sec)
+
 def rbMove(rbType : int, speed : int):
     rblist = ["", "forward", "backward", "turnleft", "turnright"]
     srbType = rblist[rbType]

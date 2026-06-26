@@ -51,16 +51,11 @@ function registerGenerators(pythonGenerator) {
     return `goto(${speed}, ${sec})\n`;
   };
 
-  pythonGenerator.forBlock['rbsim_turnleft'] = function(block) {
+  pythonGenerator.forBlock['rbsim_turn'] = function(block) {
+    const dir   = block.getFieldValue('DIR') || '1';
     const speed = val(block, 'SPEED', '50');
     const sec   = val(block, 'SEC', '1.0');
-    return `turnleft(${speed}, ${sec})\n`;
-  };
-
-  pythonGenerator.forBlock['rbsim_turnright'] = function(block) {
-    const speed = val(block, 'SPEED', '50');
-    const sec   = val(block, 'SEC', '1.0');
-    return `turnright(${speed}, ${sec})\n`;
+    return `turn(${dir}, ${speed}, ${sec})\n`;
   };
 
   pythonGenerator.forBlock['rbsim_rbMove'] = function(block) {

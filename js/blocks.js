@@ -113,12 +113,17 @@ Blockly.Blocks['rbsim_goto'] = {
   }
 };
 
-// TURN LEFT — turnleft(speed, sec)
-Blockly.Blocks['rbsim_turnleft'] = {
+// TURN — turn(leftorright, speed, sec)
+Blockly.Blocks['rbsim_turn'] = {
   init: function() {
+    this.appendDummyInput()
+        .appendField('🔄  Quay')
+        .appendField(new Blockly.FieldDropdown([
+          ['Trái (1)','1'],['Phải (2)','2']
+        ]), 'DIR');
     this.appendValueInput('SPEED')
         .setCheck('Number')
-        .appendField('↩️  Quay trái  tốc độ');
+        .appendField('tốc độ');
     this.appendValueInput('SEC')
         .setCheck('Number')
         .appendField('trong');
@@ -127,25 +132,7 @@ Blockly.Blocks['rbsim_turnleft'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(COLORS.ROBOT);
-    this.setTooltip('turnleft(speed, sec)  •  speed: int  •  sec: float');
-  }
-};
-
-// TURN RIGHT — turnright(speed, sec)
-Blockly.Blocks['rbsim_turnright'] = {
-  init: function() {
-    this.appendValueInput('SPEED')
-        .setCheck('Number')
-        .appendField('↪️  Quay phải  tốc độ');
-    this.appendValueInput('SEC')
-        .setCheck('Number')
-        .appendField('trong');
-    this.appendDummyInput().appendField('giây');
-    this.setInputsInline(true);
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(COLORS.ROBOT);
-    this.setTooltip('turnright(speed, sec)  •  speed: int  •  sec: float');
+    this.setTooltip('turn(leftorright, speed, sec)  •  dir: 1=trái, 2=phải  •  speed: int  •  sec: float');
   }
 };
 
