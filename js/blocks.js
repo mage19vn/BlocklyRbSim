@@ -193,7 +193,7 @@ Blockly.Blocks['rbsim_reversalMotor'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(COLORS.ROBOTCONTROL);
+    this.setColour(COLORS.ROBOTMOTOR);
     this.setTooltip('reversalMotor(MotorLeft, MotorRight, reType)  •  cổng M1-M4');
   }
 };

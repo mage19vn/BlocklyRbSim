@@ -110,10 +110,91 @@ let _autoSaveTimer = null;
 let _isResizing   = false;
 
 /* ============================================================
+   CUSTOM BLOCKLY DIALOGS
+   ============================================================ */
+function setupCustomDialogs() {
+  const overlay = document.getElementById('custom-modal-overlay');
+  const titleEl = document.getElementById('custom-modal-title');
+  const msgEl = document.getElementById('custom-modal-message');
+  const inputEl = document.getElementById('custom-modal-input');
+  
+  function showModal(opts) {
+    titleEl.textContent = opts.title || 'Thông báo';
+    msgEl.textContent = opts.message || '';
+    
+    if (opts.showInput) {
+      inputEl.style.display = 'block';
+      inputEl.value = opts.defaultValue || '';
+    } else {
+      inputEl.style.display = 'none';
+    }
+    
+    const btnOk = document.getElementById('custom-modal-btn-ok');
+    const btnCancel = document.getElementById('custom-modal-btn-cancel');
+    const btnClose = document.getElementById('custom-modal-close');
+    
+    // Replace nodes to clear event listeners
+    const newBtnOk = btnOk.cloneNode(true);
+    const newBtnCancel = btnCancel.cloneNode(true);
+    const newBtnClose = btnClose.cloneNode(true);
+    const newInput = inputEl.cloneNode(true);
+    
+    btnOk.replaceWith(newBtnOk);
+    btnCancel.replaceWith(newBtnCancel);
+    btnClose.replaceWith(newBtnClose);
+    inputEl.replaceWith(newInput);
+    
+    if (opts.showCancel) {
+      newBtnCancel.style.display = 'inline-flex';
+    } else {
+      newBtnCancel.style.display = 'none';
+    }
+    
+    const closeDialog = (val) => {
+      overlay.classList.add('hidden');
+      if (opts.callback) opts.callback(val);
+    };
+
+    newBtnOk.addEventListener('click', () => closeDialog(opts.showInput ? newInput.value : true));
+    newBtnCancel.addEventListener('click', () => closeDialog(opts.showInput ? null : false));
+    newBtnClose.addEventListener('click', () => closeDialog(opts.showInput ? null : false));
+    
+    newInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') closeDialog(newInput.value);
+      if (e.key === 'Escape') closeDialog(null);
+    });
+
+    overlay.classList.remove('hidden');
+    
+    if (opts.showInput) {
+      setTimeout(() => {
+        newInput.focus();
+        newInput.select();
+      }, 50);
+    } else {
+      newBtnOk.focus();
+    }
+  }
+
+  if (Blockly.dialog) {
+    Blockly.dialog.setAlert(function(message, callback) {
+      showModal({ title: 'Thông báo', message: message, showInput: false, showCancel: false, callback: callback });
+    });
+    Blockly.dialog.setConfirm(function(message, callback) {
+      showModal({ title: 'Xác nhận', message: message, showInput: false, showCancel: true, callback: callback });
+    });
+    Blockly.dialog.setPrompt(function(message, defaultValue, callback) {
+      showModal({ title: 'Nhập liệu', message: message, showInput: true, showCancel: true, defaultValue: defaultValue, callback: callback });
+    });
+  }
+}
+
+/* ============================================================
    INIT — called from index.html after all scripts load
    ============================================================ */
 function initApp() {
   setupVietnameseMsgs();
+  setupCustomDialogs();
 
   // 1. Init Blockly
   const theme = createBlocklyTheme();

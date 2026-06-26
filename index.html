@@ -216,6 +216,26 @@
 <div id="toast-container"></div>
 
 <!-- ======================================================
+     CUSTOM MODAL / DIALOG
+     ====================================================== -->
+<div id="custom-modal-overlay" class="modal-overlay hidden">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="custom-modal-title">Thông báo</h3>
+      <button id="custom-modal-close" class="modal-close">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p id="custom-modal-message"></p>
+      <input type="text" id="custom-modal-input" autocomplete="off" spellcheck="false">
+    </div>
+    <div class="modal-footer">
+      <button id="custom-modal-btn-cancel" class="btn btn-ghost">Hủy</button>
+      <button id="custom-modal-btn-ok" class="btn btn-primary">Xác nhận</button>
+    </div>
+  </div>
+</div>
+
+<!-- ======================================================
      JAVASCRIPT — load order matters
      ====================================================== -->
 
