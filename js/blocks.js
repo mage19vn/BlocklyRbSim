@@ -433,6 +433,80 @@ Blockly.Blocks['rbsim_getColor'] = {
   }
 };
 
+// AI road identification offset value -> rcu.GetAICamData(1)
+Blockly.Blocks['rbsim_ai_road_offset'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField('👁️ AI nhận diện đường: Độ lệch');
+    this.setInputsInline(true);
+    this.setOutput(true, 'Number');
+    this.setColour(COLORS.FUNCTION);
+    this.setTooltip('rcu.GetAICamData(1)');
+  }
+};
+
+// AI road identification Left width -> rcu.GetAICamData(5)
+Blockly.Blocks['rbsim_ai_road_left'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField('👁️ AI nhận diện đường: Độ rộng bên trái');
+    this.setInputsInline(true);
+    this.setOutput(true, 'Number');
+    this.setColour(COLORS.FUNCTION);
+    this.setTooltip('rcu.GetAICamData(5)');
+  }
+};
+
+// AI road identification Right width -> rcu.GetAICamData(4)
+Blockly.Blocks['rbsim_ai_road_right'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField('👁️ AI nhận diện đường: Độ rộng bên phải');
+    this.setInputsInline(true);
+    this.setOutput(true, 'Number');
+    this.setColour(COLORS.FUNCTION);
+    this.setTooltip('rcu.GetAICamData(4)');
+  }
+};
+
+// AI Task ID identification -> rcu.GetAICamData(2)
+Blockly.Blocks['rbsim_ai_task_id'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField('👁️ AI nhận diện: Task ID');
+    this.setInputsInline(true);
+    this.setOutput(true, 'Number');
+    this.setColour(COLORS.FUNCTION);
+    this.setTooltip('rcu.GetAICamData(2)');
+  }
+};
+
+// AI Traffic sign identification -> rcu.GetAICamData(2)
+Blockly.Blocks['rbsim_ai_traffic_sign'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField('👁️ AI nhận diện: Biển báo giao thông')
+        .appendField(new Blockly.FieldDropdown([['ID','ID']]), 'PROP');
+    this.setInputsInline(true);
+    this.setOutput(true, 'Number');
+    this.setColour(COLORS.FUNCTION);
+    this.setTooltip('rcu.GetAICamData(2)');
+  }
+};
+
+// AI Forest identification -> rcu.GetAICamData(3)
+Blockly.Blocks['rbsim_ai_forest'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField('👁️ AI nhận diện: Cây / Rừng')
+        .appendField(new Blockly.FieldDropdown([['ID','ID']]), 'PROP');
+    this.setInputsInline(true);
+    this.setOutput(true, 'Number');
+    this.setColour(COLORS.FUNCTION);
+    this.setTooltip('rcu.GetAICamData(3)');
+  }
+};
+
 /* ============================================================
    GROUP 5 — MATH supplements
    ============================================================ */

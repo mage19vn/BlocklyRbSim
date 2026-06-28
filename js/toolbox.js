@@ -226,7 +226,13 @@ const TOOLBOX_CONFIG = {
           kind: 'block',
           type: 'rbsim_getColor',
           fields: { PORT: '1' }
-        }
+        },
+        { kind: 'block', type: 'rbsim_ai_road_offset' },
+        { kind: 'block', type: 'rbsim_ai_road_left' },
+        { kind: 'block', type: 'rbsim_ai_road_right' },
+        { kind: 'block', type: 'rbsim_ai_task_id' },
+        { kind: 'block', type: 'rbsim_ai_traffic_sign' },
+        { kind: 'block', type: 'rbsim_ai_forest' }
       ]
     },
 

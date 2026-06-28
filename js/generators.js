@@ -159,6 +159,30 @@ function registerGenerators(pythonGenerator) {
     return [`getColor(${port})`, pythonGenerator.ORDER_FUNCTION_CALL];
   };
 
+  pythonGenerator.forBlock['rbsim_ai_road_offset'] = function(block) {
+    return [`rcu.GetAICamData(1)`, pythonGenerator.ORDER_FUNCTION_CALL];
+  };
+
+  pythonGenerator.forBlock['rbsim_ai_road_left'] = function(block) {
+    return [`rcu.GetAICamData(5)`, pythonGenerator.ORDER_FUNCTION_CALL];
+  };
+
+  pythonGenerator.forBlock['rbsim_ai_road_right'] = function(block) {
+    return [`rcu.GetAICamData(4)`, pythonGenerator.ORDER_FUNCTION_CALL];
+  };
+
+  pythonGenerator.forBlock['rbsim_ai_task_id'] = function(block) {
+    return [`rcu.GetAICamData(2)`, pythonGenerator.ORDER_FUNCTION_CALL];
+  };
+
+  pythonGenerator.forBlock['rbsim_ai_traffic_sign'] = function(block) {
+    return [`rcu.GetAICamData(2)`, pythonGenerator.ORDER_FUNCTION_CALL];
+  };
+
+  pythonGenerator.forBlock['rbsim_ai_forest'] = function(block) {
+    return [`rcu.GetAICamData(3)`, pythonGenerator.ORDER_FUNCTION_CALL];
+  };
+
   /* ----------------------------------------------------------
      GROUP 5 — MATH supplements
      ---------------------------------------------------------- */
